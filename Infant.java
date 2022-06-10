@@ -1,4 +1,4 @@
-public class Infant extends Person{
+public class Infant extends Person implements Mover{
 	
 	private final InfantToy[] toys = new InfantToy[10];
 	private int numInfantToys;
@@ -105,6 +105,62 @@ public class Infant extends Person{
 			a.concat(" " + c);
 		}
 		return a;
+	}
+	
+	@Override
+	public double metabolizeAccumulatedCalories() {
+		double weightGained = 0;
+		int ca = this.getCaloriesAccumulator();
+		while (ca - 1200 >= 0) {
+			weightGained++;
+			this.gainWeight();
+			ca -= 1200;
+		}
+		if (ca < 1200) {
+			double frac = ca / 1200.00;
+			this.gainWeight(frac);
+		}
+		this.setCaloriesAccumulator(0);
+		return weightGained;
+	}
+	
+	@Override
+	public String move() {
+		return "flail arms and legs";
+	}
+	
+	@Override
+	public String move(int count) {
+		String a = "";
+		for (int i = 0; i<= count; i++) {
+			a.concat("flail arms and legs \n");
+		}
+		return a;
+	}
+	
+	@Override
+	public void eat(Food food) {
+		int foodCals = food.getCalories();
+		
+		int calsConsumed = this.getCaloriesConsumed();
+		this.setCaloriesConsumed(calsConsumed + foodCals);
+		
+		int calsAccumulated = this.getCaloriesAccumulator();
+		this.setCaloriesAccumulator(calsAccumulated + foodCals);
+	}
+	
+	@Override
+	public void eat(Food[] food) {
+		int totalCalsAdded = 0;
+		for (Food a : food) {
+			totalCalsAdded += a.getCalories();
+		}
+		
+		int calsConsumed = this.getCaloriesConsumed();
+		this.setCaloriesConsumed(calsConsumed + totalCalsAdded);
+		
+		int calsAccumulated = this.getCaloriesAccumulator();
+		this.setCaloriesAccumulator(calsAccumulated + totalCalsAdded);
 	}
 	
 }

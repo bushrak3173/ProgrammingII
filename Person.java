@@ -1,4 +1,4 @@
-public class Person extends Passenger{
+public abstract class Person extends Passenger{
 	private int numOffspring;
 	
 	public Person() {
@@ -66,12 +66,4 @@ public class Person extends Passenger{
 			return false;
 		}
 	}
-	
-	public static void main(String[] args) {
-		Person amy = new Person("", 1900, 0.0, 0.0, 'u', 1, 0);
-		Person benny = new Person();
-		System.out.println(amy.equals(benny)); 
-	}
-	
-	
 }

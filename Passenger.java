@@ -1,10 +1,12 @@
-public class Passenger {
+public abstract class Passenger implements Eater{
 	private String name;
 	private int birthYear;
 	private double weight;
 	private char gender;
 	private int numCarryOn;
 	private double height;
+	private int caloriesConsumed = 0;
+	private int caloriesAccumulator = 0;
 	
 	public Passenger(){
 		name = "";
@@ -187,6 +189,22 @@ public class Passenger {
 		bmi /= hs;
 		return bmi;
 	}
+	
+	public int getCaloriesConsumed() {
+		return caloriesConsumed;
+	}
+	
+	public void setCaloriesConsumed(int numConsumed) {
+		caloriesConsumed = numConsumed;
+	}
+	
+	public int getCaloriesAccumulator() {
+		return caloriesAccumulator;
+	}
+	
+	public void setCaloriesAccumulator(int acc) {
+		caloriesAccumulator = acc;
+	}
 
 	
 	@Override
@@ -198,6 +216,7 @@ public class Passenger {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Passenger) {
+			//downcasts downcasts from superclass to subclass so you have access to methods
 			Passenger a = (Passenger)obj;
 			if (this.birthYear == a.getBirthYear() && this.gender == a.getGender() && this.name == a.getName()) {
 				if (Math.abs(this.weight-a.getWeight()) <= 0.5 && Math.abs(this.height - a.getHeight()) <= 0.5) {
@@ -215,4 +234,7 @@ public class Passenger {
 			return false;
 		}
 	}
+
+	@Override
+	public abstract double metabolizeAccumulatedCalories();
 }
