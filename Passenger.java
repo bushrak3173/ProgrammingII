@@ -1,12 +1,9 @@
-public abstract class Passenger implements Eater{
+public class Passenger {
 	private String name;
 	private int birthYear;
 	private double weight;
 	private char gender;
 	private int numCarryOn;
-	private double height;
-	private int caloriesConsumed = 0;
-	private int caloriesAccumulator = 0;
 	
 	public Passenger(){
 		name = "";
@@ -14,16 +11,9 @@ public abstract class Passenger implements Eater{
 		weight = 0.0;
 		gender = 'u';
 		numCarryOn = 0;
-		height = 0.0;
 	}
 	
-	public Passenger(java.lang.String name, int birthYear, double weight, double height, char gender, int numCarryOn) {
-		if (height>=0.0) {
-			this.height = height;
-		}
-		else {
-			this.height = -1;
-		}
+	public Passenger(java.lang.String name, int birthYear, double weight, char gender, int numCarryOn) {
 		this.name = name;
 		this.birthYear = birthYear;
 		if (weight >=0) {
@@ -140,8 +130,8 @@ public abstract class Passenger implements Eater{
 	}
 	
 	public void printDetails() {
-		System.out.printf("Name: %20s | Year of Birth: %4d | Weight: %10.2f | Height: %10.2f | Gender: %c | NumCarryOn: %\n", name, birthYear, weight, height, gender, numCarryOn);
-		
+		System.out.printf("Name: %20s | Year of Birth: %4d | Weight: %10.2f | Gender: %c | NumCarryOn: ", name, birthYear, weight, gender, numCarryOn);
+		System.out.println(numCarryOn);
 	}
 	
 	public void setBirthYear(int birthYear) {
@@ -170,71 +160,5 @@ public abstract class Passenger implements Eater{
 		}
 	}
 	
-	public void setHeight(double height) {
-		if (height>= 0.0) {
-			this.height = height;
-		}
-		else {
-			this.height = -1;
-		}
-	}
 	
-	public double getHeight() {
-		return height;
-	}
-	
-	public double calculateBMI() {
-		double bmi = (weight * 703);
-		double hs = Math.pow(height, 2.0);
-		bmi /= hs;
-		return bmi;
-	}
-	
-	public int getCaloriesConsumed() {
-		return caloriesConsumed;
-	}
-	
-	public void setCaloriesConsumed(int numConsumed) {
-		caloriesConsumed = numConsumed;
-	}
-	
-	public int getCaloriesAccumulator() {
-		return caloriesAccumulator;
-	}
-	
-	public void setCaloriesAccumulator(int acc) {
-		caloriesAccumulator = acc;
-	}
-
-	
-	@Override
-	public String toString() {
-		String d = String.format("Name: %20s | Year of Birth: %4d | Weight: %10.2f | Height: %10.2f | Gender: %c | NumCarryOn: %2d\n", name, birthYear, weight, height, gender, numCarryOn);
-		return d;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Passenger) {
-			//downcasts downcasts from superclass to subclass so you have access to methods
-			Passenger a = (Passenger)obj;
-			if (this.birthYear == a.getBirthYear() && this.gender == a.getGender() && this.name == a.getName()) {
-				if (Math.abs(this.weight-a.getWeight()) <= 0.5 && Math.abs(this.height - a.getHeight()) <= 0.5) {
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
-			else {     
-				return false;
-			}
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public abstract double metabolizeAccumulatedCalories();
 }
